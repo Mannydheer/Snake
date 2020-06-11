@@ -34,13 +34,12 @@ function startGame() {
 
 //Start out game.
 startGame();
-
-//pass the game root to the Canvas.
-// const newCanvas = new Canvas(
-//   "gameCanvas",
-//   document.getElementById("app"),
-//   GAME_WIDTH,
-//   GAME_HEIGHT
-// );
-
-// newCanvas.create();
+// pass the game root to the Canvas.
+//!TODO refactor canvas into ENGINE.
+const newCanvas = new Canvas(
+  "gameCanvas",
+  document.getElementById("app"),
+  GAME_WIDTH,
+  GAME_HEIGHT
+);
+newCanvas.create();
