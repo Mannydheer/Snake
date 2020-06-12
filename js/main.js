@@ -19,6 +19,32 @@ canvas.create();
 //------------------SNAKE CLASS ----------------
 const snake = new Snake(canvas.ctx);
 
+//----------------WINDOW EVENT LISTNENERS---------
+window.addEventListener("keydown", function (e) {
+  switch (e.key) {
+    case "ArrowUp":
+      //KEEP TRACK OF DIRECTION OF THE SNAKE.
+      snake.updateCurrentDirection("up");
+
+      break;
+    case "ArrowDown":
+      snake.updateCurrentDirection("down");
+
+      break;
+    case "ArrowRight":
+      snake.updateCurrentDirection("right");
+
+      break;
+    case "ArrowLeft":
+      snake.updateCurrentDirection("left");
+
+      break;
+
+    default:
+      break;
+  }
+});
+
 //-------------REQUEST ANIMATION FRAME ---------------
 let requestAnimationFrame = window.requestAnimationFrame;
 window.mozRequestAnimationFrame;
@@ -29,6 +55,8 @@ let fps;
 
 //-------------------GAME LOOP --------------------------
 function gameLoop(timeStamp) {
+  //CLEAR CANVAS
+  canvas.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   // Calculate the number of seconds passed since the last frame
   //we divide by 1000 to get the delta time in seconds between each frame.
   deltaTime = (timeStamp - oldTimeStamp) / 1000;
@@ -50,6 +78,7 @@ function gameLoop(timeStamp) {
     // SNAKE BODY
     snake.drawSnake(snakeListItem.x, snakeListItem.y, "green");
   });
+  snake.updateSnakeMovement();
 
   //call the game loop for each frame.
   requestAnimationFrame(gameLoop);
@@ -62,3 +91,7 @@ function startGame() {
 //Start out game.
 startGame();
 // pass the game root to the Canvas.
+
+// setInterval(() => {
+//   snake.snakeList.unshift({ x: snake.snakeList[0].x + 20, y: 200 });
+// }, 2000);
