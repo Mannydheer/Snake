@@ -7,6 +7,9 @@ import {
 import {
     Snake
 } from "./Snake.js";
+import {
+    Food
+} from './Food.js'
 //constants.
 import {
     GAME_WIDTH,
@@ -27,6 +30,8 @@ canvas.create();
 
 //------------------SNAKE CLASS ----------------
 const snake = new Snake(canvas.ctx);
+//------------------FOOD CLASS ----------------
+const food = new Food(canvas.ctx);
 
 //----------------WINDOW EVENT LISTNENERS---------
 window.addEventListener("keydown", function (e) {
@@ -87,7 +92,29 @@ function gameLoop(timeStamp) {
             // SNAKE BODY
             snake.drawSnake(snakeListItem.x, snakeListItem.y, "green");
         });
-        snake.updateSnakeMovement();
+        snake.updateSnakeMovement(deltaTime);
+        //-------------------FOOD ----------------------
+        food.drawFood()
+        //-------------------COLLISIONS ----------------------
+        if (snake.snakeList[0].x >= food.randomX &&
+            snake.snakeList[0].x <= food.randomX + 15 &&
+            snake.snakeList[0].y <= food.randomY &&
+            snake.snakeList[0].y >= food.randomY - 15) {
+            console.log('hit')
+            //make snack bigger.
+            snake.snakeList.splice(1, 0, {
+                x: snake.snakeList[0].x - 15,
+                y: snake.snakeList[0].y,
+            })
+
+
+        }
+
+
+
+
+
+
 
         //call the game loop for each frame.
         requestAnimationFrame(gameLoop);
