@@ -52,11 +52,12 @@ window.addEventListener("keydown", function (e) {
 let requestAnimationFrame = window.requestAnimationFrame;
 window.mozRequestAnimationFrame;
 window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+//GAME LOOP VARIABLES.
 let deltaTime = 0;
 let oldTimeStamp = 0;
-let fps = 40;
+let fps = 15;
 
-//-------------------GAME LOOP --------------------------
+//!-------------------GAME LOOP --------------------------
 function gameLoop(timeStamp) {
   //!Set timeout is forcing the request animation frame to run at 40fps.
   setTimeout(() => {
@@ -82,7 +83,7 @@ function gameLoop(timeStamp) {
       snake.drawSnake(snakeListItem.x, snakeListItem.y, "green");
     });
     snake.updateSnakeMovement(deltaTime);
-    //-------------------FOOD ----------------------
+    //-------------------FOOD----------------------
     food.drawFood();
     //-------------------COLLISIONS ----------------------
     if (
@@ -115,24 +116,33 @@ function addSnakeBodyBasedOnDirection() {
         x: snake.snakeList[0].x + snake.width,
         y: snake.snakeList[0].y,
       });
+      food.createNewFood();
+      snake.incrementFoodEaten();
       break;
     case "left":
       snake.snakeList.splice(1, 0, {
         x: snake.snakeList[0].x - snake.width,
         y: snake.snakeList[0].y,
       });
+      food.createNewFood();
+      snake.incrementFoodEaten();
       break;
     case "up":
       snake.snakeList.splice(1, 0, {
         x: snake.snakeList[0].x,
         y: snake.snakeList[0].y - snake.height,
       });
+      food.createNewFood();
+      snake.incrementFoodEaten();
+
       break;
     case "down":
       snake.snakeList.splice(1, 0, {
         x: snake.snakeList[0].x,
         y: snake.snakeList[0].y + -snake.height,
       });
+      food.createNewFood();
+      snake.incrementFoodEaten();
       break;
 
     default:

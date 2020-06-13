@@ -4,8 +4,6 @@ export class Food {
     this.height = 15;
     this.color = "blue";
     this.ctx = ctx;
-    this.foodEaten = false;
-    this.foodAvailable = true;
     this.randomX = this.generateRandomPosition();
     this.randomY = this.generateRandomPosition();
   }
@@ -13,6 +11,12 @@ export class Food {
   drawFood() {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.randomX, this.randomY, this.width, this.height);
+    //set the foot eaten to false after first render so it doesn't generate
+    //it repeatedly.
+  }
+  createNewFood() {
+    this.randomX = this.generateRandomPosition();
+    this.randomY = this.generateRandomPosition();
   }
 
   generateRandomPosition() {
