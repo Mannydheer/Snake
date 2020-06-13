@@ -7,6 +7,7 @@ export class Snake {
     this.currentDirection = null;
     this.velocity = 15;
     this.foodEatenBySnake = 0;
+    this.snakeLife = 3;
     //this will hold the snakes pieces.
     //index 0 = head, 1 = body , 2 = tail.
     this.snakeList = [
@@ -28,9 +29,15 @@ export class Snake {
   drawSnake(x, y, color) {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(x, y, this.width, this.height);
+    //Food counter text.
     this.ctx.font = "20px Arial";
     this.ctx.fillText(`${this.foodEatenBySnake} - Food Count`, 5, 30);
   }
+
+  snakeLives() {
+    this.ctx.fillText(`Lives: ${this.snakeLife}`, 530, 30);
+  }
+
   incrementFoodEaten() {
     this.foodEatenBySnake++;
   }

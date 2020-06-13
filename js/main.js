@@ -82,7 +82,12 @@ function gameLoop(timeStamp) {
       // SNAKE BODY
       snake.drawSnake(snakeListItem.x, snakeListItem.y, "green");
     });
-    snake.updateSnakeMovement(deltaTime);
+    //-------------------SNAKE MOVEMENT----------------------
+    snake.updateSnakeMovement();
+    //-------------------SNAKE BOUNDARIES----------------------
+    checkSnakeBoundaries();
+    //-------------------SNAKE LIVES----------------------
+    snake.snakeLives();
     //-------------------FOOD----------------------
     food.drawFood();
     //-------------------COLLISIONS ----------------------
@@ -94,9 +99,11 @@ function gameLoop(timeStamp) {
     ) {
       addSnakeBodyBasedOnDirection();
     }
-
+    //------------------------------GAME ENDING -----------------------
     //call the game loop for each frame.
-    requestAnimationFrame(gameLoop);
+    if (gameEngine.gameRunning === true && snake.snakeLife > 0) {
+      requestAnimationFrame(gameLoop);
+    }
   }, 1000 / fps);
 }
 //----------------START GAME-------------------
@@ -147,5 +154,17 @@ function addSnakeBodyBasedOnDirection() {
 
     default:
       break;
+  }
+}
+
+function checkSnakeBoundaries() {
+  if (
+    snake.snakeList[0].x - 5 === GAME_WIDTH ||
+    snake.snakeList[0].x - 5 === 0 ||
+    snake.snakeList[0].y - 5 === GAME_HEIGHT ||
+    snake.snakeList[0].y - 5 === 0
+  ) {
+    //reduce snake life by one.
+    snake.snakeLife--;
   }
 }
