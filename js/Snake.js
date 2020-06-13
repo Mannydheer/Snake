@@ -7,7 +7,7 @@ export class Snake {
     this.currentDirection = null;
     this.velocity = 15;
     this.foodEatenBySnake = 0;
-    this.snakeLife = 3;
+    this.snakeLife = ["💙", "💙", "💙"];
     //this will hold the snakes pieces.
     //index 0 = head, 1 = body , 2 = tail.
     this.snakeList = [
@@ -35,11 +35,26 @@ export class Snake {
   }
 
   snakeLives() {
-    this.ctx.fillText(`Lives: ${this.snakeLife}`, 530, 30);
+    this.snakeLife.forEach((life, index) => {
+      this.ctx.fillText(`${life}`, 560 - index * 20, 30);
+    });
   }
 
   incrementFoodEaten() {
     this.foodEatenBySnake++;
+  }
+  checkSnakeBoundaries(GAME_WIDTH, GAME_HEIGHT) {
+    console.log(this.snakeList[0].y);
+    if (
+      this.snakeList[0].x - 5 === GAME_WIDTH ||
+      this.snakeList[0].x === -10 ||
+      this.snakeList[0].y - 5 === GAME_HEIGHT ||
+      this.snakeList[0].y === -10
+    ) {
+      //remove a heart from snake.
+      this.snakeLife.shift();
+      //reset snakes position if out of bounds.
+    }
   }
 
   updateSnakeMovement() {
